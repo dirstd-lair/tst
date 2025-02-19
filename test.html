@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Chatbots - Landing Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Общие стили */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            overflow-x: hidden; /* Убираем горизонтальный скролл */
+            color: #fff;
+            background-color: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(ellipse at center, #06062e 0%, #000000 100%); /* Темный градиент */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(173, 216, 230, 0.8);
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #ADD8E6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Шапка */
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Гамбургер меню */
+        .menu-toggle {
+            display: none; /* Скрываем на больших экранах */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            color: #ADD8E6;
+            font-size: 1.5em;
+            z-index: 102;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav li {
+            display: inline-block;
+            margin: 0 20px;
+        }
+
+        /* Анимация открытия/закрытия мобильного меню */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 101;
+            transform: translateX(100%);  /* Скрываем за экраном */
+            transition: transform 0.3s ease;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0); /* Открываем */
+        }
+
+        .nav-menu li {
+            margin: 15px 0;
+            font-size: 1.2em;
+        }
+
+
+        /* Секция "Герой" */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #ADD8E6;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            text-shadow: none;
+        }
+
+        .cta-button:hover {
+            background-color: #87CEEB;
+        }
+
+        /* Секция "Особенности" */
+        .features {
+            padding: 50px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-right: 20px;
+            color: #ADD8E6;
+        }
+
+        .feature-text {
+            flex-grow: 1;
+        }
+
+        /* Секция "Цены" */
+        .pricing {
+            padding: 50px 0;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            padding: 30px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #444;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ADD8E6;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pricing-card li {
+            margin-bottom: 10px;
+        }
+
+        /* Футер */
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        /* Анимация фона - звезды */
+        @keyframes stars {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: stars 15s linear infinite;
+        }
+        .star:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .star:nth-child(2) { left: 30%; top: 5%; animation-delay: 2s; }
+        .star:nth-child(3) { left: 60%; top: 35%; animation-delay: 4s; }
+        .star:nth-child(4) { left: 80%; top: 10%; animation-delay: 6s; }
+        .star:nth-child(5) { left: 20%; top: 70%; animation-delay: 8s; }
+        .star:nth-child(6) { left: 45%; top: 40%; animation-delay: 10s; }
+        .star:nth-child(7) { left: 70%; top: 60%; animation-delay: 12s; }
+        .star:nth-child(8) { left: 15%; top: 90%; animation-delay: 14s; }
+        .star:nth-child(9) { left: 55%; top: 85%; animation-delay: 1s; }
+        .star:nth-child(10) { left: 90%; top: 25%; animation-delay: 3s; }
+        .star:nth-child(11) { left: 5%; top: 50%; animation-delay: 5s; }
+        .star:nth-child(12) { left: 35%; top: 95%; animation-delay: 7s; }
+        .star:nth-child(13) { left: 65%; top: 55%; animation-delay: 9s; }
+        .star:nth-child(14) { left: 85%; top: 75%; animation-delay: 11s; }
+        .star:nth-child(15) { left: 40%; top: 15%; animation-delay: 13s; }
+
+         /* Стили для языка */
+        .language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 101;
+        }
+
+        .language-button {
+            background-color: #ADD8E6;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .language-button.active {
+            background-color: #87CEEB;
+        }
+
+        /* Медиа-запросы для адаптивности */
+        /* Для экранов до 1024px (планшеты) */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 15px; /* Меньше отступов */
+            }
+
+            .hero h1 {
+                font-size: 2.8em; /* Чуть меньше размер заголовка */
+            }
+
+            .feature-icon {
+                font-size: 2.5em; /* Меньше иконки */
+                margin-right: 15px;
+            }
+
+            .pricing-card {
+                width: 45%; /* Карточки тарифов занимают больше ширины */
+            }
+        }
+
+        /* Для экранов до 768px (мобильные устройства) */
+        @media (max-width: 768px) {
+            /* Общие изменения */
+            .container {
+                padding: 10px;
+            }
+
+            header {
+                padding: 10px 0;
+            }
+
+            /* Скрываем основное меню */
+            nav ul {
+                display: none;
+            }
+
+            /* Отображаем гамбургер меню */
+            .menu-toggle {
+                display: block;
+            }
+
+            /* Показываем мобильное меню */
+            .nav-menu {
+                display: flex;
+            }
+
+            /* Секция "Герой" */
+            .hero {
+                padding: 50px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .cta-button {
+                padding: 12px 25px; /* Уменьшаем размер кнопки */
+                font-size: 0.9em; /* Уменьшаем размер текста кнопки */
+            }
+
+            /* Секция "Особенности" */
+            .feature-item {
+                flex-direction: column; /* Элементы идут друг под другом */
+                text-align: center; /* Выравниваем текст по центру */
+            }
+
+            .feature-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            /* Секция "Цены" */
+            .pricing-cards {
+                flex-direction: column; /* Карточки идут друг под другом */
+                align-items: center; /* Выравниваем карточки по центру */
+            }
+
+            .pricing-card {
+                width: 80%; /* Карточки занимают больше ширины */
+                margin: 15px 0; /* Добавляем отступы */
+            }
+
+            /* Language switcher */
+            .language-switcher {
+                position: static; /* Перемещаем в поток документа */
+                margin-bottom: 10px;
+                justify-content: center; /* Центрируем кнопки */
+            }
+
+            .contact-description {
+                text-align: center;
+            }
+
+            .container-fot {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 25px;
+
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="container container-fot">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#features" data-translate="features">Features</a></li>
+                    <li><a href="#pricing" data-translate="pricing">Pricing</a></li>
+                    <li><a href="#contact" data-translate="contact">Contact</a></li>
+                    <div class="language-switcher">
+                        <button class="language-button active" data-lang="en">EN</button>
+                        <button class="language-button" data-lang="ru">RU</button>
+                    </div>
+                </ul>
+                
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container container-fot">
+            <h1 data-translate="hero-title">Launch Your Business into Orbit with AI Chatbots!</h1>
+            <p data-translate="hero-description">Automated customer service, lead generation, and more. Our AI chatbots are designed to take your business to the next level in the vast expanse of the digital galaxy.</p>
+            <a href="#pricing" class="cta-button" data-translate="get-started">Get Started</a>
+        </div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 data-translate="features-title">Explore the Cosmos of Possibilities</h2>
+            <div class="feature-item">
+                <i class="fas fa-comment-dots feature-icon"></i>
+                <div class="feature-text">
+                    <h3 data-translate="feature-1-title">24/7 Customer Support</h3>
+                    <p data-translate="feature-1-description">Provide instant answers and support to your customers, anytime, anywhere, just like a helpful space station.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-rocket feature-icon"></i>
+                <div class="feature-text">
+                    <h3 data-translate="feature-2-title">Lead Generation</h3>
+                    <p data-translate="feature-2-description">Capture leads and qualify prospects automatically, propelling your sales pipeline into hyperspace.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <div class="feature-text">
+                    <h3 data-translate="feature-3-title">Increased Engagement</h3>
+                    <p data-translate="feature-3-description">Engage visitors and boost conversion rates with interactive chatbots, navigating your site like a skilled astronaut.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 data-translate="pricing-title">Choose Your Interstellar Plan</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3 data-translate="plan-basic">Basic</h3>
+                    <div class="price">$19/month</div>
+                    <ul class="pricing-features">
+                        <li data-translate="feature-basic-1">Limited Chatbot Interactions</li>
+                        <li data-translate="feature-basic-2">Basic Analytics</li>
+                        <li data-translate="feature-basic-3">Standard Support</li>
+                    </ul>
+                    <a href="#" class="cta-button" data-translate="buy-now">Buy Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 data-translate="plan-premium">Premium</h3>
+                    <div class="price">$49/month</div>
+                    <ul class="pricing-features">
+                        <li data-translate="feature-premium-1">Unlimited Chatbot Interactions</li>
+                        <li data-translate="feature-premium-2">Advanced Analytics</li>
+                        <li data-translate="feature-premium-3">Priority Support</li>
+                        <li data-translate="feature-premium-4">Custom Integrations</li>
+                    </ul>
+                    <a href="#" class="cta-button" data-translate="buy-now">Buy Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 data-translate="plan-enterprise">Enterprise</h3>
+                    <div class="price">$99+/month</div>
+                    <ul class="pricing-features">
+                        <li data-translate="feature-enterprise-1">Custom Solutions</li>
+                        <li data-translate="feature-enterprise-2">Dedicated Account Manager</li>
+                        <li data-translate="feature-enterprise-3">Custom Reporting</li>
+                        <li data-translate="feature-enterprise-4">Unlimited everything</li>
+                    </ul>
+                    <a href="#" class="cta-button" data-translate="buy-now">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 data-translate="contact-title">Contact Us</h2>
+            <p data-translate="contact-description" class="contact-description">Have questions or need assistance? Contact our support team.</p>
+            <a href="mailto:support@spacechatbots.com" class="cta-button" data-translate="contact-button">Contact Us</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span data-translate="copyright-year">2024</span> Space Chatbots. <span data-translate="all-rights">All rights reserved.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                "features": "Features",
+                "pricing": "Pricing",
+                "contact": "Contact",
+                "hero-title": "Launch Your Business into Orbit with AI Chatbots!",
+                "hero-description": "Automated customer service, lead generation, and more. Our AI chatbots are designed to take your business to the next level in the vast expanse of the digital galaxy.",
+                "get-started": "Get Started",
+                "features-title": "Explore the Cosmos of Possibilities",
+                "feature-1-title": "24/7 Customer Support",
+                "feature-1-description": "Provide instant answers and support to your customers, anytime, anywhere, just like a helpful space station.",
+                "feature-2-title": "Lead Generation",
+                "feature-2-description": "Capture leads and qualify prospects automatically, propelling your sales pipeline into hyperspace.",
+                "feature-3-title": "Increased Engagement",
+                "feature-3-description": "Engage visitors and boost conversion rates with interactive chatbots, navigating your site like a skilled astronaut.",
+                "pricing-title": "Choose Your Interstellar Plan",
+                "plan-basic": "Basic",
+                "feature-basic-1": "Limited Chatbot Interactions",
+                "feature-basic-2": "Basic Analytics",
+                "feature-basic-3": "Standard Support",
+                "plan-premium": "Premium",
+                "feature-premium-1": "Unlimited Chatbot Interactions",
+                "feature-premium-2": "Advanced Analytics",
+                "feature-premium-3": "Priority Support",
+                "feature-premium-4": "Custom Integrations",
+                "plan-enterprise": "Enterprise",
+                "feature-enterprise-1": "Custom Solutions",
+                "feature-enterprise-2": "Dedicated Account Manager",
+                "feature-enterprise-3": "Custom Reporting",
+                "feature-enterprise-4": "Unlimited everything",
+                "buy-now": "Buy Now",
+                "contact-title": "Contact Us",
+                "contact-description": "Have questions or need assistance? Contact our support team.",
+                "contact-button": "Contact Us",
+                "copyright-year": "2024",
+                "all-rights": "All rights reserved."
+            },
+            ru: {
+                "features": "Функции",
+                "pricing": "Цены",
+                "contact": "Контакты",
+                "hero-title": "Выведите свой бизнес на орбиту с AI Чат-ботами!",
+                "hero-description": "Автоматизированное обслуживание клиентов, генерация лидов и многое другое. Наши AI чат-боты разработаны, чтобы вывести ваш бизнес на новый уровень в бескрайних просторах цифровой галактики.",
+                "get-started": "Начать",
+                "features-title": "Исследуйте Космос Возможностей",
+                "feature-1-title": "Поддержка клиентов 24/7",
+                "feature-1-description": "Предоставляйте мгновенные ответы и поддержку своим клиентам в любое время и в любом месте, как полезная космическая станция.",
+                "feature-2-title": "Генерация лидов",
+                "feature-2-description": "Автоматически захватывайте лиды и квалифицируйте потенциальных клиентов, отправляя ваш конвейер продаж в гиперпространство.",
+                "feature-3-title": "Повышенное взаимодействие",
+                "feature-3-description": "Привлекайте посетителей и увеличивайте коэффициент конверсии с помощью интерактивных чат-ботов, ориентируясь на вашем сайте, как опытный астронавт.",
+                "pricing-title": "Выберите свой межзвездный план",
+                "plan-basic": "Базовый",
+                "feature-basic-1": "Ограниченные взаимодействия с чат-ботом",
+                "feature-basic-2": "Базовая аналитика",
+                "feature-basic-3": "Стандартная поддержка",
+                "plan-premium": "Премиум",
+                "feature-premium-1": "Неограниченные взаимодействия с чат-ботом",
+                "feature-premium-2": "Расширенная аналитика",
+                "feature-premium-3": "Приоритетная поддержка",
+                "feature-premium-4": "Пользовательские интеграции",
+                "plan-enterprise": "Корпоративный",
+                "feature-enterprise-1": "Пользовательские решения",
+                "feature-enterprise-2": "Персональный менеджер аккаунта",
+                "feature-enterprise-3": "Пользовательская отчетность",
+                "feature-enterprise-4": "Неограниченный доступ ко всему",
+                "buy-now": "Купить сейчас",
+                "contact-title": "Связаться с нами",
+                "contact-description": "Есть вопросы или нужна помощь? Свяжитесь с нашей службой поддержки.",
+                "contact-button": "Связаться с нами",
+                "copyright-year": "2024",
+                "all-rights": "Все права защищены."
+            }
+        };
+
+        function translatePage(lang) {
+            const elementsToTranslate = document.querySelectorAll('[data-translate]');
+            elementsToTranslate.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                element.textContent = translations[lang][key] || element.textContent;
+            });
+        }
+
+        let currentLanguage = 'en';
+        translatePage(currentLanguage);
+
+        const languageButtons = document.querySelectorAll('.language-button');
+        languageButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const selectedLanguage = event.target.getAttribute('data-lang');
+                if (selectedLanguage !== currentLanguage) {
+                    document.querySelector('.language-button.active').classList.remove('active');
+                    event.target.classList.add('active');
+                    currentLanguage = selectedLanguage;
+                    translatePage(currentLanguage);
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active'); // Добавляем/удаляем класс active
+        });
+    </script>
+</body>
+</html>
